@@ -18,6 +18,35 @@ Tags: one-column, custom-colors, custom-menu, custom-logo, editor-style, feature
  * Link styles
  * https://github.com/WordPress/gutenberg/issues/42319
  */
+:root {
+	--nietos-primary: var(--wp--preset--color--accent-1);
+	--nietos-primary-dark: var(--wp--preset--color--accent-2);
+	--nietos-primary-light: var(--wp--preset--color--accent-3);
+	--nietos-surface: var(--wp--preset--color--accent-5);
+	--nietos-border: var(--wp--preset--color--accent-6);
+	--nietos-text-primary: var(--wp--preset--color--contrast);
+	--nietos-text-secondary: var(--wp--preset--color--accent-4);
+	--nietos-text-tertiary: var(--wp--preset--color--accent-7);
+	--nietos-success: var(--wp--preset--color--accent-8);
+	--nietos-warning: var(--wp--preset--color--accent-9);
+	--nietos-danger: var(--wp--preset--color--accent-10);
+	--nietos-info: var(--wp--preset--color--accent-11);
+	--nietos-font-sans: var(--wp--preset--font-family--inter);
+	--nietos-font-mono: var(--wp--preset--font-family--jetbrains-mono);
+	--nietos-space-xs: var(--wp--preset--spacing--20);
+	--nietos-space-sm: var(--wp--preset--spacing--30);
+	--nietos-space-md: var(--wp--preset--spacing--40);
+	--nietos-space-lg: var(--wp--preset--spacing--50);
+	--nietos-space-xl: var(--wp--preset--spacing--60);
+	--nietos-space-2xl: var(--wp--preset--spacing--70);
+	--nietos-space-3xl: var(--wp--preset--spacing--80);
+	--nietos-radius-sm: 4px;
+	--nietos-radius-md: 6px;
+	--nietos-radius-lg: 8px;
+	--nietos-radius-xl: 12px;
+	--nietos-radius-pill: 9999px;
+}
+
 a {
 	text-decoration-thickness: 1px !important;
 	text-underline-offset: .1em;
