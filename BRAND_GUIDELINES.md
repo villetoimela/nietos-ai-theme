@@ -21,73 +21,76 @@ Nietos AI makes WordPress site management natural and effortless. We're not just
 
 ### Color Palette
 
-#### Primary Colors
+#### Midnight Core Palette
 ```css
-/* Primary Blue - Technological, trustworthy */
---nietos-primary: #2563EB      /* Blue */
---nietos-primary-dark: #1E40AF /* Dark blue */
---nietos-primary-light: #3B82F6 /* Light blue */
-
-/* Neutral Base - Clean, minimalist */
---nietos-background: #FFFFFF   /* White */
---nietos-surface: #F8FAFC      /* Very light gray */
---nietos-border: #E2E8F0       /* Light gray border */
-```
-
-#### Secondary Colors
-```css
-/* Semantic Colors */
---nietos-success: #10B981      /* Green - successful actions */
---nietos-warning: #F59E0B      /* Orange - warnings */
---nietos-danger: #EF4444       /* Red - critical actions */
---nietos-info: #06B6D4         /* Cyan - information */
+/* Foundational Surfaces */
+--nietos-base: #4433A6         /* Midnight Indigo background */
+--nietos-contrast: #79F3B1     /* Mint foreground on dark surfaces */
+--nietos-accent-1: #5644BC     /* Action/background tint */
+--nietos-accent-2: #372696     /* Hover / emphasis */
+--nietos-accent-3: #251D51     /* Deep shadow / headlines */
+--nietos-accent-5: #E8B7FF     /* Highlight panel */
+--nietos-overlay: #79F3B133    /* 20% mint overlay / borders */
 ```
 
 #### Text Colors
 ```css
-/* Typography Colors */
---nietos-text-primary: #0F172A    /* Main headings and content */
---nietos-text-secondary: #475569  /* Subheadings and meta text */
---nietos-text-tertiary: #94A3B8   /* Placeholder and disabled */
---nietos-text-inverted: #FFFFFF   /* Dark backgrounds */
+--nietos-text-primary: #79F3B1   /* Body copy on base surfaces */
+--nietos-text-secondary: #E8B7FF /* Metadata and subtle headings */
+--nietos-text-tertiary: #94A3B8  /* Muted UI elements */
+--nietos-text-inverted: #251D51  /* Text on light highlight panels */
+```
+
+#### Semantic Support
+```css
+--nietos-success: #10B981      /* Positive actions */
+--nietos-warning: #F59E0B      /* Warnings */
+--nietos-danger: #EF4444       /* Destructive */
+--nietos-info: #06B6D4         /* Informative highlights */
 ```
 
 ### Typography
 
 #### Fonts
 
-**Primary Font - Inter**
-- Modern sans-serif, optimized for screens
-- Used for all UI text
-- Available: Google Fonts or locally
+**Primary UI Font – Fira Sans**
+- Clean humanist sans-serif for body copy and interface text
+- Supports wide weight range for hierarchy
 
 ```css
-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+font-family: "Fira Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 ```
 
-**Monospace - JetBrains Mono** (optional, for code)
+**Display Font – Literata**
+- Elegant serif for headings, pull quotes and large numerals
+
 ```css
-font-family: 'JetBrains Mono', 'Courier New', monospace;
+font-family: "Literata", "Times New Roman", serif;
+```
+
+**Code Font – JetBrains Mono** (for inline code/ui logs)
+```css
+font-family: "JetBrains Mono", "Courier New", monospace;
 ```
 
 #### Text Hierarchy
 
 ```css
 /* Headings */
---heading-xl: 32px / 40px, font-weight: 700  /* Hero headings */
---heading-lg: 24px / 32px, font-weight: 600  /* Page headings */
---heading-md: 20px / 28px, font-weight: 600  /* Card headings */
---heading-sm: 16px / 24px, font-weight: 600  /* Small headings */
+--heading-xl: 52px / 1.1, font-family: Literata, font-weight: 300
+--heading-lg: 40px / 1.15, font-family: Literata, font-weight: 300
+--heading-md: 32px / 1.2, font-family: Literata, font-weight: 300
+--heading-sm: 24px / 1.25, font-family: Literata, font-weight: 400
 
 /* Body Text */
---body-lg: 16px / 24px, font-weight: 400     /* Main content */
---body-md: 14px / 20px, font-weight: 400     /* Normal text */
---body-sm: 12px / 16px, font-weight: 400     /* Small text */
+--body-lg: 18px / 1.6, font-family: Fira Sans, font-weight: 400
+--body-md: 16px / 1.6, font-family: Fira Sans, font-weight: 400
+--body-sm: 14px / 1.5, font-family: Fira Sans, font-weight: 400
 
 /* UI Text */
---label: 14px / 20px, font-weight: 500       /* Labels */
---caption: 12px / 16px, font-weight: 400     /* Captions */
---code: 14px / 20px, font-weight: 400        /* Code blocks */
+--label: 14px / 1.4, font-family: Fira Sans, font-weight: 500
+--caption: 12px / 1.4, font-family: Fira Sans, font-weight: 400
+--code: 14px / 1.4, font-family: JetBrains Mono, font-weight: 400
 ```
 
 ### Logo and Marks
@@ -130,29 +133,46 @@ font-family: 'JetBrains Mono', 'Courier New', monospace;
 - Medium: 20px × 20px
 - Large: 24px × 24px
 
+#### Spacing Scale
+Use these tokens to keep vertical rhythm consistent.
+
+```css
+--spacing-20 (XS): 8px
+--spacing-30 (Small): 16px
+--spacing-40 (Medium): 24px
+--spacing-50 (Large): 40px
+--spacing-60 (XL): 56px
+--spacing-70 (2XL): 72px
+--spacing-80 (3XL): 96px
+```
+
 ### UI Components
 
 #### Buttons
 
 ```css
 /* Primary Button */
-background: --nietos-primary
-color: white
-padding: 10px 20px
-border-radius: 6px
-font-weight: 500
-hover: --nietos-primary-dark
+background: --nietos-contrast
+color: --nietos-base
+padding: 16px 24px
+border-radius: 0
+font-family: Literata
+font-weight: 400
+text-transform: uppercase
+letter-spacing: -0.01em
+hover: color-mix(in srgb, --nietos-contrast 85%, transparent)
 
 /* Secondary Button */
 background: transparent
-color: --nietos-primary
-border: 1px solid --nietos-border
-padding: 10px 20px
-border-radius: 6px
+color: --nietos-contrast
+border: 1px solid --nietos-contrast
+padding: 16px 24px
+border-radius: 0
+hover: background-color: color-mix(in srgb, --nietos-contrast 10%, transparent)
 
 /* Danger Button */
 background: --nietos-danger
-color: white
+color: #FFFFFF
 ```
 
 #### Cards and Panels
