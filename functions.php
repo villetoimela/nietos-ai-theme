@@ -59,6 +59,27 @@ if ( ! function_exists( 'twentytwentyfive_enqueue_styles' ) ) :
 endif;
 add_action( 'wp_enqueue_scripts', 'twentytwentyfive_enqueue_styles' );
 
+// Enqueues navigation.js for sticky header effect.
+if ( ! function_exists( 'nietos_enqueue_navigation_script' ) ) :
+	/**
+	 * Enqueues navigation.js for Nietos AI sticky header.
+	 *
+	 * @since Nietos AI 1.0
+	 *
+	 * @return void
+	 */
+	function nietos_enqueue_navigation_script() {
+		wp_enqueue_script(
+			'nietos-navigation',
+			get_theme_file_uri( 'assets/js/navigation.js' ),
+			array(),
+			wp_get_theme()->get( 'Version' ),
+			true
+		);
+	}
+endif;
+add_action( 'wp_enqueue_scripts', 'nietos_enqueue_navigation_script' );
+
 // Registers custom block styles.
 if ( ! function_exists( 'twentytwentyfive_block_styles' ) ) :
 	/**

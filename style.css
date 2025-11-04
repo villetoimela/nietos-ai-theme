@@ -256,3 +256,138 @@ h1, h2, h3, h4, h5, h6, blockquote, caption, figcaption, p {
 	color: var(--wp--preset--color--base, #fff);
 	border-color: var(--wp--preset--color--accent-1, #4433A6);
 }
+
+/*
+ * Mobile Navigation Styles - Nietos AI Colors
+ * Tummansininen tausta + mint-väriset linkit
+ */
+
+/* Mobile menu overlay styling */
+.wp-block-navigation__responsive-container.is-menu-open {
+	background-color: var(--nietos-base, #4433A6) !important;
+	background: var(--nietos-base, #4433A6) !important;
+}
+
+/* Mobile menu close button */
+.wp-block-navigation__responsive-container-close {
+	color: var(--nietos-contrast, #79F3B1) !important;
+}
+
+.wp-block-navigation__responsive-container-close:hover {
+	color: var(--nietos-accent-5, #E8B7FF) !important;
+}
+
+/* Mobile navigation links */
+.wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item a {
+	color: var(--nietos-contrast, #79F3B1) !important;
+	font-size: 1.25rem;
+	font-weight: 500;
+	padding: 0.75rem 1rem;
+	transition: all 0.3s ease;
+}
+
+.wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item a:hover {
+	color: var(--nietos-accent-5, #E8B7FF) !important;
+	background-color: rgba(121, 243, 177, 0.1);
+	border-radius: var(--nietos-radius-md, 6px);
+}
+
+/* Mobile navigation container background */
+.wp-block-navigation__responsive-container-content {
+	background-color: var(--nietos-base, #4433A6) !important;
+}
+
+/* Hamburger button colors */
+.wp-block-navigation__responsive-container-open {
+	color: var(--nietos-contrast, #79F3B1) !important;
+}
+
+.wp-block-navigation__responsive-container-open:hover {
+	color: var(--nietos-accent-5, #E8B7FF) !important;
+}
+
+/* Mobile submenu items */
+.wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__submenu-container {
+	background-color: rgba(55, 38, 150, 0.8) !important;
+	border: 1px solid rgba(121, 243, 177, 0.2);
+}
+
+.wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__submenu-container .wp-block-navigation-item a {
+	color: var(--nietos-contrast, #79F3B1) !important;
+}
+
+/* Mobile menu button in navigation */
+.wp-block-navigation__responsive-container.is-menu-open button {
+	color: var(--nietos-contrast, #79F3B1) !important;
+}
+
+/*
+ * Desktop Navigation Hover Effects
+ * Sama hover-efekti kuin mobilessa
+ */
+
+/* Desktop navigation links */
+.wp-block-navigation:not(.has-background) .wp-block-navigation-item a {
+	color: var(--nietos-contrast, #79F3B1) !important;
+	padding: 0.5rem 1rem;
+	border-radius: var(--nietos-radius-md, 6px);
+	transition: all 0.3s ease;
+	text-decoration: none !important;
+}
+
+.wp-block-navigation:not(.has-background) .wp-block-navigation-item a:hover {
+	color: var(--nietos-accent-5, #E8B7FF) !important;
+	background-color: rgba(121, 243, 177, 0.1);
+}
+
+/* Active/current page link */
+.wp-block-navigation:not(.has-background) .wp-block-navigation-item.current-menu-item a {
+	background-color: rgba(121, 243, 177, 0.15);
+	color: var(--nietos-accent-5, #E8B7FF) !important;
+}
+
+/*
+ * Sticky Header
+ * Header pysyy näkyvissä sivun scrollatessa (VAIN DESKTOP)
+ */
+
+/* Sticky header only on desktop (> 782px) */
+@media (min-width: 783px) {
+	/* Target the first group in wp-site-blocks (typically the header) */
+	body > .wp-site-blocks > .wp-block-group:first-child,
+	body > .wp-site-blocks > header:first-child,
+	.wp-block-template-part[class*="header"] {
+		position: sticky;
+		top: 0;
+		z-index: 1000;
+		background: var(--nietos-base, #4433A6);
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	/* Enhanced shadow when scrolled (JavaScript can add .scrolled class) */
+	body > .wp-site-blocks > .wp-block-group:first-child.scrolled,
+	body > .wp-site-blocks > header:first-child.scrolled,
+	.wp-block-template-part[class*="header"].scrolled {
+		box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+		backdrop-filter: blur(10px);
+	}
+
+	/* Smooth scroll offset for anchor links */
+	html {
+		scroll-padding-top: 100px;
+	}
+}
+
+/* Mobile: header scrolls normally (no sticky) */
+@media (max-width: 782px) {
+	body > .wp-site-blocks > .wp-block-group:first-child,
+	body > .wp-site-blocks > header:first-child,
+	.wp-block-template-part[class*="header"] {
+		position: relative;
+	}
+
+	html {
+		scroll-padding-top: 0;
+	}
+}
