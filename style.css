@@ -391,3 +391,185 @@ h1, h2, h3, h4, h5, h6, blockquote, caption, figcaption, p {
 		scroll-padding-top: 0;
 	}
 }
+
+/*
+ * Animated Blur Orbs
+ * Hienovaraisesti liikkuvat blur-pallerot
+ * Käyttö: Lisää image blockiin CSS class "floating-orb", "floating-orb-slow" tai "floating-orb-reverse"
+ */
+
+/* Base animation for floating orbs - HIENOVARAISET ERIKOISEFEKTIT */
+
+/* Variaatio 1: Hidas hengitys + skew + 20° rotation */
+@keyframes float-gentle {
+	0% {
+		transform: translate(0, 0) scale(1) rotate(0deg) skew(0deg, 0deg);
+		opacity: 0.85;
+	}
+	25% {
+		transform: translate(8px, -6px) scale(1.03) rotate(7deg) skew(1deg, -1deg);
+		opacity: 0.9;
+	}
+	50% {
+		transform: translate(-5px, 10px) scale(1.02) rotate(15deg) skew(-1deg, 1deg);
+		opacity: 0.88;
+	}
+	75% {
+		transform: translate(-10px, -4px) scale(1.04) rotate(22deg) skew(0.5deg, -0.5deg);
+		opacity: 0.92;
+	}
+	100% {
+		transform: translate(0, 0) scale(1) rotate(0deg) skew(0deg, 0deg);
+		opacity: 0.85;
+	}
+}
+
+/* Variaatio 2: Kelluminen + perspective + 20° rotation */
+@keyframes float-slow {
+	0% {
+		transform: translate(0, 0) scale(1) rotate(0deg) rotateX(0deg) rotateY(0deg);
+	}
+	20% {
+		transform: translate(-7px, 5px) scale(1.02) rotate(5deg) rotateX(3deg) rotateY(-2deg);
+	}
+	40% {
+		transform: translate(9px, -8px) scale(1.01) rotate(12deg) rotateX(-2deg) rotateY(3deg);
+	}
+	60% {
+		transform: translate(-6px, 11px) scale(1.03) rotate(18deg) rotateX(1deg) rotateY(-3deg);
+	}
+	80% {
+		transform: translate(8px, -5px) scale(1.01) rotate(21deg) rotateX(-3deg) rotateY(2deg);
+	}
+	100% {
+		transform: translate(0, 0) scale(1) rotate(0deg) rotateX(0deg) rotateY(0deg);
+	}
+}
+
+/* Variaatio 3: Pulssi + opacity fade + 20° rotation */
+@keyframes float-reverse {
+	0% {
+		transform: translate(0, 0) scale(1) rotate(0deg);
+		opacity: 0.8;
+	}
+	16% {
+		transform: translate(6px, -7px) scale(1.02) rotate(4deg);
+		opacity: 0.88;
+	}
+	33% {
+		transform: translate(-8px, 6px) scale(1.04) rotate(10deg);
+		opacity: 0.95;
+	}
+	50% {
+		transform: translate(10px, 9px) scale(1.03) rotate(16deg);
+		opacity: 0.92;
+	}
+	66% {
+		transform: translate(-7px, -8px) scale(1.02) rotate(20deg);
+		opacity: 0.85;
+	}
+	83% {
+		transform: translate(5px, 4px) scale(1.01) rotate(12deg);
+		opacity: 0.9;
+	}
+	100% {
+		transform: translate(0, 0) scale(1) rotate(0deg);
+		opacity: 0.8;
+	}
+}
+
+@keyframes pulse-glow {
+	0%, 100% {
+		opacity: 0.8;
+		filter: blur(60px);
+	}
+	50% {
+		opacity: 1;
+		filter: blur(80px);
+	}
+}
+
+/* Floating orb classes for Gutenberg images - KOLME HIENOVARAISTA VARIAATIOTA */
+
+/* Variaatio 1: Hidas hengitys + skew (30s) */
+.floating-orb,
+.wp-block-image.floating-orb,
+.wp-block-image.floating-orb img {
+	animation: float-gentle 30s ease-in-out infinite;
+	will-change: transform, filter, opacity;
+	transform-style: preserve-3d;
+	overflow: visible !important;
+}
+
+/* Variaatio 2: Kelluminen + perspective (35s) */
+.floating-orb-slow,
+.wp-block-image.floating-orb-slow,
+.wp-block-image.floating-orb-slow img {
+	animation: float-slow 35s ease-in-out infinite;
+	will-change: transform, filter;
+	transform-style: preserve-3d;
+	perspective: 1000px;
+	overflow: visible !important;
+}
+
+/* Variaatio 3: Pulssi + opacity fade (28s) */
+.floating-orb-reverse,
+.wp-block-image.floating-orb-reverse,
+.wp-block-image.floating-orb-reverse img {
+	animation: float-reverse 28s ease-in-out infinite;
+	will-change: transform, filter, opacity;
+	overflow: visible !important;
+}
+
+/* Varmista että parent containerit eivät leikkaa blurreja reunoja */
+.wp-block-image.floating-orb,
+.wp-block-image.floating-orb-slow,
+.wp-block-image.floating-orb-reverse {
+	overflow: visible !important;
+	padding: 20px;
+	margin: -20px;
+}
+
+/* Container overflow fix */
+.orb-container,
+.wp-block-group:has(.floating-orb),
+.wp-block-group:has(.floating-orb-slow),
+.wp-block-group:has(.floating-orb-reverse) {
+	overflow: visible !important;
+}
+
+/* Container for multiple orbs with staggered animations */
+.orb-container {
+	position: relative;
+	overflow: visible;
+}
+
+.orb-container .floating-orb:nth-child(1) {
+	animation-delay: 0s;
+}
+
+.orb-container .floating-orb:nth-child(2) {
+	animation-delay: -5s;
+}
+
+.orb-container .floating-orb:nth-child(3) {
+	animation-delay: -10s;
+}
+
+.orb-container .floating-orb:nth-child(4) {
+	animation-delay: -15s;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+	.floating-orb,
+	.floating-orb-slow,
+	.floating-orb-reverse,
+	.floating-orb-pulse,
+	.wp-block-image.floating-orb img,
+	.wp-block-image.floating-orb-slow img,
+	.wp-block-image.floating-orb-reverse img,
+	.wp-block-image.floating-orb-pulse img {
+		animation: none;
+	}
+}
