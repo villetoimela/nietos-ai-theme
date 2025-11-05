@@ -15,6 +15,15 @@ Tags: one-column, custom-colors, custom-menu, custom-logo, editor-style, feature
 */
 
 /*
+ * Force Literata font on all headings
+ */
+h1, h2, h3, h4, h5, h6,
+.wp-block-heading,
+.editor-post-title__input {
+	font-family: var(--wp--preset--font-family--literata, 'Literata', serif) !important;
+}
+
+/*
  * Link styles
  * https://github.com/WordPress/gutenberg/issues/42319
  */
@@ -571,5 +580,21 @@ h1, h2, h3, h4, h5, h6, blockquote, caption, figcaption, p {
 	.wp-block-image.floating-orb-reverse img,
 	.wp-block-image.floating-orb-pulse img {
 		animation: none;
+	}
+}
+
+.wp-elements-e3e3947f6c8e3ee037b0ee01eadade08 a:where(:not(.wp-element-button)) {
+    color: var(--wp--preset--color--contrast);
+	font-weight: bold;
+	text-transform: capitalize;
+}
+
+a:where(:not(.wp-element-button)) {
+    color: var(--wp--preset--color--accent-5);
+    text-decoration: underline;
+
+	&:hover {
+		color: var(--wp--preset--color--accent-5);
+		text-decoration: underline;
 	}
 }
