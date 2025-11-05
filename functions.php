@@ -177,3 +177,41 @@ if ( ! function_exists( 'twentytwentyfive_format_binding' ) ) :
 		}
 	}
 endif;
+
+// Registers Nietos custom blocks.
+if ( ! function_exists( 'nietos_register_blocks' ) ) :
+	/**
+	 * Registers Nietos AI custom blocks.
+	 *
+	 * @since Nietos AI 1.0
+	 *
+	 * @return void
+	 */
+	function nietos_register_blocks() {
+		// Register Nietos Blog Posts block
+		register_block_type( get_theme_file_path( 'blocks/nietos-blog-posts' ) );
+	}
+endif;
+add_action( 'init', 'nietos_register_blocks' );
+
+// Enqueues frontend JavaScript for Nietos blocks.
+if ( ! function_exists( 'nietos_enqueue_block_scripts' ) ) :
+	/**
+	 * Enqueues frontend scripts for Nietos custom blocks.
+	 *
+	 * @since Nietos AI 1.0
+	 *
+	 * @return void
+	 */
+	function nietos_enqueue_block_scripts() {
+		// Enqueue filter.js for blog posts block
+		wp_enqueue_script(
+			'nietos-blog-posts-filter',
+			get_theme_file_uri( 'blocks/nietos-blog-posts/filter.js' ),
+			array(),
+			wp_get_theme()->get( 'Version' ),
+			true
+		);
+	}
+endif;
+add_action( 'wp_enqueue_scripts', 'nietos_enqueue_block_scripts' );

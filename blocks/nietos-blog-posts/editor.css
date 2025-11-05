@@ -1,0 +1,31 @@
+/**
+ * Nietos Blog Posts Block - Editor Styles
+ */
+
+.nietos-blog-posts-editor-preview {
+	width: 100%;
+	min-height: 400px;
+}
+
+/* Improve editor preview visibility */
+.editor-styles-wrapper .nietos-blog-posts-wrapper {
+	padding: 24px;
+	background: #4433A6;
+	border-radius: 8px;
+}
+
+/* Make sure filter buttons are visible in editor */
+.editor-styles-wrapper .nietos-filter-btn {
+	pointer-events: none;
+	opacity: 0.8;
+}
+
+.editor-styles-wrapper .nietos-filter-btn.active {
+	opacity: 1;
+}
+
+/* Ensure cards show up in editor */
+.editor-styles-wrapper .nietos-blog-card {
+	opacity: 1;
+	transform: none;
+}

@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(test:*)",
+      "Bash(cat:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(cd /Users/admin/Documents/Local/nietos-ai/app/public/wp-content/themes/Nietos AI theme && wp plugin list:*)",
+      "Bash(wp theme list:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

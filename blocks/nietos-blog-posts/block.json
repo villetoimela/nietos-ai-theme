@@ -1,0 +1,54 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "nietos/blog-posts",
+	"version": "1.0.0",
+	"title": "Nietos Blog Posts",
+	"category": "widgets",
+	"icon": "grid-view",
+	"description": "Näyttää blogiartikkelit kauniissa korteissa kategoriafiltteröinnillä",
+	"keywords": ["blog", "posts", "articles", "grid", "filter"],
+	"textdomain": "twentytwentyfive",
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"attributes": {
+		"postsPerPage": {
+			"type": "number",
+			"default": 6
+		},
+		"selectedCategories": {
+			"type": "array",
+			"default": []
+		},
+		"showFeaturedImage": {
+			"type": "boolean",
+			"default": true
+		},
+		"showExcerpt": {
+			"type": "boolean",
+			"default": true
+		},
+		"showCategories": {
+			"type": "boolean",
+			"default": true
+		},
+		"showDate": {
+			"type": "boolean",
+			"default": true
+		},
+		"columns": {
+			"type": "number",
+			"default": 3
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css",
+	"style": "file:./style.css",
+	"render": "file:./render.php"
+}
