@@ -215,3 +215,145 @@ if ( ! function_exists( 'nietos_enqueue_block_scripts' ) ) :
 	}
 endif;
 add_action( 'wp_enqueue_scripts', 'nietos_enqueue_block_scripts' );
+
+// Adds FAQ Schema markup to FAQ pages.
+if ( ! function_exists( 'nietos_add_faq_schema' ) ) :
+	/**
+	 * Generates and adds FAQ Schema (JSON-LD) markup to pages containing FAQ content.
+	 * This helps Google display rich snippets with FAQ accordion in search results.
+	 *
+	 * @since Nietos AI 1.0
+	 *
+	 * @return void
+	 */
+	function nietos_add_faq_schema() {
+		// Only run on singular pages
+		if ( ! is_singular() ) {
+			return;
+		}
+
+		global $post;
+
+		// Get post content
+		$content = $post->post_content;
+
+		// Check if page contains FAQ-like structure (headings followed by paragraphs)
+		// This works with standard Gutenberg blocks
+		$faq_items = array();
+
+		// Parse blocks to find FAQ structure
+		$blocks = parse_blocks( $content );
+
+		$current_question = '';
+		$current_answer = '';
+
+		foreach ( $blocks as $block ) {
+			// Look for heading blocks (questions)
+			if ( 'core/heading' === $block['blockName'] && ! empty( $block['innerHTML'] ) ) {
+				// Save previous FAQ item if exists
+				if ( $current_question && $current_answer ) {
+					$faq_items[] = array(
+						'question' => $current_question,
+						'answer'   => $current_answer,
+					);
+				}
+
+				// Extract question text
+				$current_question = wp_strip_all_tags( $block['innerHTML'] );
+				$current_answer = '';
+			}
+
+			// Look for paragraph blocks (answers)
+			if ( 'core/paragraph' === $block['blockName'] && ! empty( $block['innerHTML'] ) && $current_question ) {
+				$answer_text = wp_strip_all_tags( $block['innerHTML'] );
+				$current_answer .= ( $current_answer ? ' ' : '' ) . $answer_text;
+			}
+
+			// Handle nested blocks (like columns, groups)
+			if ( ! empty( $block['innerBlocks'] ) ) {
+				nietos_parse_faq_blocks_recursive( $block['innerBlocks'], $current_question, $current_answer, $faq_items );
+			}
+		}
+
+		// Add last FAQ item
+		if ( $current_question && $current_answer ) {
+			$faq_items[] = array(
+				'question' => $current_question,
+				'answer'   => $current_answer,
+			);
+		}
+
+		// Only add schema if we found FAQ items
+		if ( empty( $faq_items ) ) {
+			return;
+		}
+
+		// Build Schema markup
+		$schema = array(
+			'@context'   => 'https://schema.org',
+			'@type'      => 'FAQPage',
+			'mainEntity' => array(),
+		);
+
+		foreach ( $faq_items as $item ) {
+			$schema['mainEntity'][] = array(
+				'@type'          => 'Question',
+				'name'           => $item['question'],
+				'acceptedAnswer' => array(
+					'@type' => 'Answer',
+					'text'  => $item['answer'],
+				),
+			);
+		}
+
+		// Output schema as JSON-LD
+		echo '<script type="application/ld+json">' . "\n";
+		echo wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT );
+		echo "\n" . '</script>' . "\n";
+	}
+endif;
+
+// Helper function to recursively parse nested blocks for FAQ content.
+if ( ! function_exists( 'nietos_parse_faq_blocks_recursive' ) ) :
+	/**
+	 * Recursively parses nested Gutenberg blocks to find FAQ content.
+	 *
+	 * @since Nietos AI 1.0
+	 *
+	 * @param array  $blocks            Array of blocks to parse.
+	 * @param string &$current_question Current question being processed (by reference).
+	 * @param string &$current_answer   Current answer being processed (by reference).
+	 * @param array  &$faq_items        Array of FAQ items found (by reference).
+	 * @return void
+	 */
+	function nietos_parse_faq_blocks_recursive( $blocks, &$current_question, &$current_answer, &$faq_items ) {
+		foreach ( $blocks as $block ) {
+			// Look for heading blocks (questions)
+			if ( 'core/heading' === $block['blockName'] && ! empty( $block['innerHTML'] ) ) {
+				// Save previous FAQ item if exists
+				if ( $current_question && $current_answer ) {
+					$faq_items[] = array(
+						'question' => $current_question,
+						'answer'   => $current_answer,
+					);
+				}
+
+				// Extract question text
+				$current_question = wp_strip_all_tags( $block['innerHTML'] );
+				$current_answer = '';
+			}
+
+			// Look for paragraph blocks (answers)
+			if ( 'core/paragraph' === $block['blockName'] && ! empty( $block['innerHTML'] ) && $current_question ) {
+				$answer_text = wp_strip_all_tags( $block['innerHTML'] );
+				$current_answer .= ( $current_answer ? ' ' : '' ) . $answer_text;
+			}
+
+			// Recurse into nested blocks
+			if ( ! empty( $block['innerBlocks'] ) ) {
+				nietos_parse_faq_blocks_recursive( $block['innerBlocks'], $current_question, $current_answer, $faq_items );
+			}
+		}
+	}
+endif;
+add_action( 'wp_head', 'nietos_add_faq_schema' );
