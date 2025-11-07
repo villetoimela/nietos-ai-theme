@@ -357,3 +357,18 @@ if ( ! function_exists( 'nietos_parse_faq_blocks_recursive' ) ) :
 	}
 endif;
 add_action( 'wp_head', 'nietos_add_faq_schema' );
+
+// Adds Google Search Console verification meta tag.
+if ( ! function_exists( 'nietos_add_google_verification' ) ) :
+	/**
+	 * Adds Google Search Console verification meta tag to head.
+	 *
+	 * @since Nietos AI 1.0
+	 *
+	 * @return void
+	 */
+	function nietos_add_google_verification() {
+		echo '<meta name="google-site-verification" content="qcx-VUMsRSVcPH6VJUx3lZVuOi6cRszFtb0waQyOrAo" />' . "\n";
+	}
+endif;
+add_action( 'wp_head', 'nietos_add_google_verification' );
